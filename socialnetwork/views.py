@@ -146,11 +146,13 @@ def delete_post(request, id):
 
     posts = Post.objects.all().order_by('date_created').reverse()
     comments = Comment.objects.all().order_by('date_created')
+    user = request.user
+    user_profile = UserProfile.objects.all()
     if posts:
         last_post = posts[0].pk
     else:
         last_post = 0;
-    context = {'last_post' : last_post, 'posts' : posts, 'comments' : comments, 'errors' : errors}
+    context = {'last_post' : last_post, 'posts' : posts, 'comments' : comments, 'errors' : errors, 'user' : user, 'user_profile' : user_profile}
     return render(request, 'socialnetwork/global-stream.html', context)
 
 @login_required
