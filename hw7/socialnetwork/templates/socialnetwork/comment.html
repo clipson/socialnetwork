@@ -1,0 +1,22 @@
+{% load staticfiles%}
+<div class="row">
+  <table class= "col s5">
+    <tr>
+      <td>
+        <img src="{% url 'photo' comment.user.id %}" alt="{{user.picture}}" onerror="this.src='{% static "socialnetwork/images/default.png" %}';" width="50px" height="50px">
+      </td>
+      <td>
+        <a class="link" href="{% url 'profile' post.user.id %}">{{comment.user.first_name}} {{comment.user.last_name}}</a>
+        <br>
+        <p class="date">{{comment.date_created}}</p>
+      </td>
+    </tr>
+  </table>
+  {% if comment.user == user %}
+  <form method="post" action="{% url 'delete-comment' comment.id %}">
+  <button class="del rfloat" type="submit" name="action">X</button>
+  {% csrf_token %}
+  </form>
+{% endif %}
+</div>
+{{comment}}

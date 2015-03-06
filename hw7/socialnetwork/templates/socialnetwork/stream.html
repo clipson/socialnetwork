@@ -1,0 +1,125 @@
+{% extends "socialnetwork/main.html" %}
+
+{% block stream %}
+{% load staticfiles%}
+
+  <div class="col s8">
+    <div class="card grey lighten-5">
+      <form action="{% url 'add-post' %}" method="post">
+
+          <p class="center-align" style="color: red">
+            {{ error }}
+          </p>
+
+          <br>
+          <input maxlength=160 class="col s10 offset-s1" type="text" name="post" placeholder="What do you have to say?"/>
+
+
+        <div class="center">
+          <button class="btn waves-effect waves-light" type="submit" name="action">Post
+            <i class="mdi-content-send right"></i>
+          </button>
+          {% csrf_token %}
+        </div>
+      </form>
+    </div>
+    <br>
+    <div class="card teal lighten-5">
+      <div class="card-content">
+        <span class="card-title black-text"><p2>Your Stream:</p2></span>
+        <div class="row">
+          <div class= "post_stream">
+          <input type="hidden" id = "last_post_num" name = "last_post" value ={{last_post}}>
+          {% for post in posts %}
+
+          <form method="post" action="{% url 'delete-post' post.id %}">
+            <div class="col s12">
+              <div class="card">
+                <div class="card-content wrap">
+                  <div class="row">
+                    <table class= "col s5">
+                      <tr>
+                        <td>
+                          {% for prof in user_profile %}
+                          {% if prof.pk == post.user.id %}
+
+                          <img src={{prof.picture_url}} alt="{{user.picture}}" onerror="this.src='{% static "socialnetwork/images/default.png" %}';" width="50px" height="50px">
+                          {% endif %}
+                          {% endfor %}
+                        </td>
+                        <td>
+                          <a class="link" href="{% url 'profile' post.user.id %}">{{post.user.first_name}} {{post.user.last_name}}</a>
+                          <br>
+                          <p class="date">{{post.date_created}}</p>
+                        </td>
+                      </tr>
+                    </table>
+                    {% if post.user == user %}
+                    <button class="del rfloat" type="submit" name="action">X</button>
+                    {% csrf_token %}
+                    {% endif %}
+                  </div>
+
+                  {{post}}
+                  <br>
+                  <br>
+                  </form>
+                </div>
+
+                  <div class="divider"></div>
+                  <div class="card-content wrap grey lighten-4">
+                  {% for comment in comments %}
+                  {% if comment.post == post %}
+
+                  <div class="row">
+                    <table class= "col s5">
+                      <tr>
+                        <td>
+                          <img src="{% url 'photo' comment.user.id %}" alt="{{user.picture}}" onerror="this.src='{% static "socialnetwork/images/default.png" %}';" width="50px" height="50px">
+                        </td>
+                        <td>
+                          <a class="link" href="{% url 'profile' post.user.id %}">{{comment.user.first_name}} {{comment.user.last_name}}</a>
+                          <br>
+                          <p class="date">{{comment.date_created}}</p>
+                        </td>
+                      </tr>
+                    </table>
+                    {% if comment.user == user %}
+                    <form method="post" action="{% url 'delete-comment' comment.id %}">
+                    <button class="del rfloat" type="submit" name="action">X</button>
+                    {% csrf_token %}
+                    </form>
+                  {% endif %}
+                  </div>
+                  {{comment}}
+
+                  {% endif %}
+                  {% endfor %}
+
+                  <div class="row">
+                  <form class = "comment_submit" method="post" action="{% url 'add-comment' post.id %}">
+                    <input maxlength=160 class="col s10 offset-s1" type="text" name="comment" placeholder="Write a comment"/>
+                    {% csrf_token %}
+                  </form>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+
+
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block global-stream %}
+{% endblock %}
+
+{% block follower-stream %}
+{% endblock %}

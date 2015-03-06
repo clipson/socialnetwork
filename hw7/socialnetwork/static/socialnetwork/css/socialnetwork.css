@@ -1,0 +1,88 @@
+/*!
+* Custom CSS
+*/
+
+.container.side {
+  font-size: 20px;
+  min-width: 200px;
+}
+
+.card.panels {
+  text-align:center;
+}
+
+a.sidelink {
+   color:#5c6bc0;
+   font-size:16px;
+   text-transform:none;
+   padding-left: 15px;
+   overflow:hidden;
+ }
+
+ .bold > a {
+   font-weight: bold;
+ }
+
+ nav.top-nav {
+   height: 75px;
+   overflow:hidden;
+   min-width: 500px;
+ }
+
+ nav.top-nav a.page-title {
+   line-height: 75px;
+   font-size: 35px;
+   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+ }
+
+ a.button-collapse.top-nav {
+   position: absolute;
+   left: 7.5%;
+   top: 0;
+   float: none;
+   margin-left: 1.5rem;
+   color: #fff;
+   font-size: 32px;
+   z-index: 2;
+ }
+
+ a.button-collapse.top-nav.full {
+   line-height: 122px;
+ }
+
+ .feed {
+   margin-top: 20px;
+ }
+
+i.huge {
+  font-size: 150px;
+}
+
+p.date {
+  font-size: 12px;
+  font-style: italic;
+}
+
+.rfloat {
+  float: right;
+}
+
+.del {
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.del:hover {
+  color: red;
+}
+
+.card-content.wrap {
+  word-wrap:break-word;
+}
+
+a.link {
+  color:#5c6bc0;
+  font-size:18px;
+  text-transform:none;
+}

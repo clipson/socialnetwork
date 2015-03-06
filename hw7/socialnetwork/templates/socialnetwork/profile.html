@@ -1,0 +1,141 @@
+{% extends "socialnetwork/main.html" %}
+
+{% block title %} Social Network Profile {% endblock %}
+
+{% block profile %}
+{% load staticfiles%}
+
+  <div class="col s3">
+    <div class="card center grey lighten-5">
+        <div class="card-content">
+          <span class="card-title black-text"><p2>{{user_profile.first_name}} {{user_profile.last_name}}</p2></span>
+          <br>
+          {{error}}
+          {% if user_profile2.picture %}
+            <img src="{{user_profile2.picture_url}}" alt="{{user_profile2.picture}}" width="200px" height="200px">
+
+          {% else %}
+          <i id="logo-container" class="huge mdi-action-account-circle"></i>
+          {% endif %}
+
+          <p>Username: {{user_profile.username}}</p>
+          {% if user_profile2.age %}
+            <p>Age: {{user_profile2.age}}</p>
+          {% endif %}
+          {% if user_profile2.bio %}
+            <br>
+            <p>{{user_profile2.bio}}</p>
+          {% endif %}
+          <br>
+
+          {% if user_profile == user %}
+          <a class="sidelink" href="{% url 'edit_profile' %}">Edit Profile</a>
+          {% else %}
+            {% if follow == 1 %}
+            <form action="{% url 'profile' user_profile2.user_id %}" method="post">
+              <td><input class="btn" type="submit" value="Unfollow"></td>
+              {% csrf_token %}
+            </form>
+            {% else %}
+            <form action="{% url 'profile' user_profile2.user_id %}" method="post">
+              <td><input class="btn" type="submit" value="Follow"></td>
+              {% csrf_token %}
+            </form>
+            {% endif %}
+          {% endif %}
+
+        </div>
+    </div>
+  </div>
+  <div class= "col s5">
+    <div class="card teal lighten-5">
+      <div class="card-content">
+        <span class="card-title black-text"><p2>Posts:</p2></span>
+        <div class="row">
+
+          {% for post in posts %}
+
+          <form method="post" action="{% url 'delete-post' post.id %}">
+            <div class="col s12">
+              <div class="card">
+                <div class="card-content wrap">
+
+                  <div class="row">
+                    <table class= "col s7">
+                      <tr>
+                        <td>
+                          <img src="{{user_profile2.picture_url}}" alt="{{user.picture}}" onerror="this.src='{% static "socialnetwork/images/default.png" %}';" width="50px" height="50px">
+                        </td>
+                        <td>
+                          <a class="link" href="{% url 'profile' user_profile.id %}">{{user_profile.first_name}} {{user_profile.last_name}}</a>
+                          <br>
+                          <p class="date">{{post.date_created}}</p>
+                        </td>
+                      </tr>
+                    </table>
+                    {% if user_profile == user %}
+                    <button class="del rfloat" type="submit" name="action">X</button>
+                    {% csrf_token %}
+                    {% endif %}
+                  </div>
+
+                  {{post}}
+                </form>
+              </div>
+
+                  <div class="divider"></div>
+
+                  <div class="card-content wrap grey lighten-4">
+                  {% for comment in comments %}
+                  {% if comment.post == post %}
+                  <div class="row">
+                    <table class= "col s5">
+                      <tr>
+                        <td>
+                          {% for prof in user_profile_set %}
+                          {% if prof.pk == comment.user.id %}
+                          <img src="{{prof.picture_url}}" alt="{{user.picture}}" onerror="this.src='{% static "socialnetwork/images/default.png" %}';" width="50px" height="50px">
+                          {% endif %}
+                          {% endfor %}
+                      </td>
+                        <td>
+                          <a class="link" href="{% url 'profile' comment.user.id %}">{{comment.user.first_name}} {{comment.user.last_name}}</a>
+                          <br>
+                          <p class="date">{{comment.date_created}}</p>
+                        </td>
+                      </tr>
+                    </table>
+                    {% if comment.user == user %}
+                    <form method="post" action="{% url 'delete-comment' comment.id %}">
+                    <button class="del rfloat" type="submit" name="action">X</button>
+                    {% csrf_token %}
+                    </form>
+                  {% endif %}
+                  </div>
+                  {{comment}}
+
+                  {% endif %}
+                  {% endfor %}
+
+                  <div class="row">
+                  <form class = "comment_submit" method="post" action="{% url 'add-comment' post.id %}">
+                    <input maxlength=160 class="col s10 offset-s1" type="text" name="comment" placeholder="Write a comment"/>
+                    {% csrf_token %}
+                  </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock %}

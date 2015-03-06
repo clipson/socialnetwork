@@ -1,0 +1,77 @@
+{% load staticfiles%}
+
+<input type="hidden" id = "last" name = "last" value ={{last}}>
+
+{% for post in posts %}
+<form method="post" action="{% url 'delete-post' post.id %}">
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content wrap">
+        <div class="row">
+          <table class= "col s5">
+            <tr>
+              <td>
+                <img src="{% url 'photo' post.user.id %}" alt="{{user.picture}}" onerror="this.src='{% static "socialnetwork/images/default.png" %}';" width="50px" height="50px">
+              </td>
+              <td>
+                <a class="link" href="{% url 'profile' post.user.id %}">{{post.user.first_name}} {{post.user.last_name}}</a>
+                <br>
+                <p class="date">{{post.date_created}}</p>
+              </td>
+            </tr>
+          </table>
+          {% if post.user == user %}
+          <button class="del rfloat" type="submit" name="action">X</button>
+          {% csrf_token %}
+          {% endif %}
+        </div>
+
+        {{post}}
+        <br>
+        <br>
+        </form>
+      </div>
+
+        <div class="divider"></div>
+        <div class="card-content wrap grey lighten-4">
+        {% for comment in comments %}
+        {% if comment.post == post %}
+
+        <div class="row">
+          <table class= "col s5">
+            <tr>
+              <td>
+                <img src="{% url 'photo' comment.user.id %}" alt="{{user.picture}}" onerror="this.src='{% static "socialnetwork/images/default.png" %}';" width="50px" height="50px">
+              </td>
+              <td>
+                <a class="link" href="{% url 'profile' post.user.id %}">{{comment.user.first_name}} {{comment.user.last_name}}</a>
+                <br>
+                <p class="date">{{comment.date_created}}</p>
+              </td>
+            </tr>
+          </table>
+          {% if comment.user == user %}
+          <form method="post" action="{% url 'delete-comment' comment.id %}">
+          <button class="del rfloat" type="submit" name="action">X</button>
+          {% csrf_token %}
+          </form>
+        {% endif %}
+        </div>
+        {{comment}}
+
+        {% endif %}
+        {% endfor %}
+
+        <div class="row">
+        <form class = "new_comment_submit" method="post" action="{% url 'add-comment' post.id %}">
+          <input maxlength=160 class="col s10 offset-s1" type="text" name="comment" placeholder="Write a comment"/>
+          {% csrf_token %}
+        </form>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+{% endfor %}

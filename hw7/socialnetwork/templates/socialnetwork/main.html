@@ -1,0 +1,40 @@
+{% extends "socialnetwork/base.html" %}
+
+{% block main %}
+  <div class="row">
+
+    {% block side-nav %}
+      <div class="col s3">
+        <div class="container side">
+          <p class ="nohover it"> Hi, {{user.first_name}}! </p>
+          <div class="card panels">
+            <a class="sidelink" href="{% url 'home_page' %}">Global Stream</a>
+          </div>
+          <div class="card panels">
+            <a class="sidelink" href="{% url 'follower-stream' %}">Follower Stream</a>
+          </div>
+          <div class="card panels">
+            <a class="sidelink" href="{% url 'profile' user.id %}">Profile</a>
+          </div>
+          <a href="{% url 'logout' %}">Logout</a>
+        </div>
+      </div>
+    {% endblock %}
+
+    <div class="stream">
+      {% block stream %}
+      {% endblock %}
+    </div>
+
+    <div class="profile">
+      {% block profile %}
+      {% endblock %}
+    </div>
+
+    <div class="edit_profile">
+      {% block edit_profile %}
+      {% endblock %}
+    </div>
+
+  </div>
+{% endblock %}

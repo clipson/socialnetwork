@@ -1,0 +1,4 @@
+*.pyc
+*.ini
+myenv
+staticfiles

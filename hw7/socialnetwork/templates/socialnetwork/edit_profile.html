@@ -1,0 +1,42 @@
+{% extends "socialnetwork/main.html" %}
+
+{% block title %} Social Network Edit Profile {% endblock %}
+
+{% block edit_profile %}
+
+  <div class="col s4">
+    <div class="card center card grey lighten-5">
+      <div class="card-content">
+        <span class="card-title black-text"><p2>{{user.first_name}} {{user.last_name}}</p2></span>
+        <p>{{user_profile.user}}</p>
+        <form enctype="multipart/form-data" method="post" action="{% url 'edit_profile' %}">
+          {{message}}
+          <div class="input-field">
+            {{ uform.first_name }}
+            {{ uform.first_name.label_tag }}
+          </div>
+          <div class="input-field">
+            {{ uform.last_name }}
+            {{ uform.last_name.label_tag }}
+          </div>
+          <div class="input-field">
+            {{ pform.age }}
+            {{ pform.age.label_tag }}
+          </div>
+          <div class="input-field">
+            {{ pform.bio }}
+            {{ pform.bio.label_tag }}
+          </div>
+          <br>
+          {{pform.picture.label_tag }}
+          {{pform.picture}}
+
+          <input class="btn" type="submit" value="Edit" />
+          {% csrf_token %}
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

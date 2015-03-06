@@ -1,0 +1,44 @@
+{% extends "socialnetwork/base.html" %}
+
+{% block title %} Social Network Login {% endblock %}
+
+{% block login %}
+  <br>
+  <div class="row">
+    <div class="col s4 offset-s4">
+      <div class="card grey lighten-5">
+        {% if form.errors %}
+          <p class="center-align" style="color:red">
+            Incorrect user name and password.
+          </p>
+        {% endif %}
+        <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+          <div class="card-content">
+            <span class="card-title black-text">Login</span>
+              <div class="input-field">
+                {{form.username}}
+                {{form.username.label_tag}}
+              </div>
+              <div class="input-field">
+                {{form.password}}
+                {{form.password.label_tag}}
+              </div>
+            </div>
+          <div class="card-action">
+            <table><tr>
+            <td><input class="btn" type="submit" value="Login" /></td>
+            <input type="hidden" name="next" value="{{ next }}" />
+              {% csrf_token %}
+        </form>
+            <form action="{% url 'registration' %}" method="get">
+              <td><input class="btn indigo darken-5" type="submit" value="Register"></td>
+            </form>
+          </tr></table>
+          </div>
+
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
