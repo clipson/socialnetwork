@@ -22,32 +22,10 @@ import urlparse
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 DATABASES={}
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'grumblr',
-#        'USER' : 'webapps',
-#        'PASSWORD' : 'fun',
-#        'HOST' : 'localhost',
-#        'PORT' : '',
-#    }
-#}
-
-
 #DATABASES['default'] =  dj_database_url.config(default='postgres://testadmin:testing@localhost/django_db')
 
 #DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
 
-urlparse.uses_netloc.append("postgres")
-url = urlparse.urlparse(os.environ["DATABASE_URL"])
-
-conn = psycopg2.connect(
-    database=url.path[1:],
-    user=url.username,
-    password=url.password,
-    host=url.hostname,
-    port=url.port
-)
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -91,7 +69,16 @@ TEMPLATE_DEBUG = True
 #ALLOWED_HOSTS = ['limitless-falls-6527.herokuapp.com']
 
 
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
 
+conn = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
 
 # Application definition
 
@@ -161,4 +148,5 @@ print 'EMAIL_HOST',EMAIL_HOST+':'+str(EMAIL_PORT)
 print 'EMAIL_HOST_USER',EMAIL_HOST_USER
 
 import dj_database_url
+
 DATABASES['default'] =  dj_database_url.config()

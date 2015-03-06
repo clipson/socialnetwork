@@ -276,7 +276,6 @@ def edit_profile(request):
     }
     return render(request, 'socialnetwork/edit_profile.html', context)
 
-@transaction.atomic
 def registration(request):
     context = {}
 
