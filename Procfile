@@ -1,1 +1,1 @@
-web: gunicorn hw7.webapps.wsgi:application
+web: gunicorn webapps.wsgi:application
