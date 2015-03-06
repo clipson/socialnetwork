@@ -1,4 +1,3 @@
 *.pyc
-*.ini
-myenv
 staticfiles
+myenv
