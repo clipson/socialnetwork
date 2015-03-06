@@ -64,7 +64,7 @@ ALLOWED_HOSTS = ['*']
 # This application object is used by the development server
 # as well as any WSGI server configured to use this file.
 
-WSGI_APPLICATION = 'webapps.wsgi.application'
+WSGI_APPLICATION = 'hw7.webapps.wsgi.application'
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'staticfiles'
@@ -123,9 +123,6 @@ LOGIN_URL = '/socialnetwork/login'
 
 # Default URL to redirect to after a user logs in.
 LOGIN_REDIRECT_URL = '/socialnetwork/'
-
-
-
 
 
 # Internationalization
