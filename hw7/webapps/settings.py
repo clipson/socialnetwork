@@ -21,16 +21,16 @@ import urlparse
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'grumblr',
-        'USER' : 'webapps',
-        'PASSWORD' : 'fun',
-        'HOST' : 'localhost',
-        'PORT' : '',
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'grumblr',
+#        'USER' : 'webapps',
+#        'PASSWORD' : 'fun',
+#        'HOST' : 'localhost',
+#        'PORT' : '',
+#    }
+#}
 
 
 #DATABASES['default'] =  dj_database_url.config(default='postgres://testadmin:testing@localhost/django_db')
@@ -161,3 +161,6 @@ EMAIL_PORT = 587
 
 print 'EMAIL_HOST',EMAIL_HOST+':'+str(EMAIL_PORT)
 print 'EMAIL_HOST_USER',EMAIL_HOST_USER
+
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
