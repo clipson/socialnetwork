@@ -150,14 +150,14 @@ MEDIA_URL = '/pictures/'
 
 
 # Email
-config = ConfigParser.ConfigParser()
-config.read("config.ini")
+#config = ConfigParser.ConfigParser()
+#config.read("../config.ini")
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = config.get('Email', 'Host')
-EMAIL_HOST_USER = config.get('Email', 'User')
-EMAIL_HOST_PASSWORD = config.get('Email', 'Password')
-EMAIL_PORT = config.get('Email', 'Port')
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = ENV['USER']
+EMAIL_HOST_PASSWORD = ENV['PASSWORD']
+EMAIL_PORT = 587
 
 print 'EMAIL_HOST',EMAIL_HOST+':'+str(EMAIL_PORT)
 print 'EMAIL_HOST_USER',EMAIL_HOST_USER
