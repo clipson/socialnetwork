@@ -76,13 +76,13 @@ def add_post(request):
     if not form.is_valid():
         posts = Post.objects.all().order_by('date_created').reverse()
         comments = Comment.objects.all().order_by('date_created')
-
+        user_profile = UserProfile.objects.all()
         # Update hidden field to track last new post
         if posts:
             last_post = posts[0].pk
         else:
             last_post = 0;
-        context = {'last_post' : last_post, 'posts' : posts, 'comments' : comments, 'error' : 'Post not valid. Please try again.'}
+        context = {'last_post' : last_post, 'posts' : posts, 'comments' : comments, 'error' : 'Post not valid. Please try again.', 'user_profile': user_profile}
         return render(request, 'socialnetwork/global-stream.html', context)
 
     # Creates a new post if it is present as a parameter in the request
@@ -96,6 +96,7 @@ def add_post(request):
 
     posts = Post.objects.all().order_by('date_created').reverse()
     comments = Comment.objects.all().order_by('date_created')
+    user_profile = UserProfile.objects.all()
 
     # Update hidden field to track last new post
     if posts:
@@ -103,7 +104,7 @@ def add_post(request):
     else:
         last_post = 0;
 
-    context = {'last_post' : last_post, 'posts' : posts, 'comments' : comments, 'errors' : errors}
+    context = {'last_post' : last_post, 'posts' : posts, 'comments' : comments, 'errors' : errors, 'user_profile': user_profile}
     return render(request, 'socialnetwork/global-stream.html', context)
 
 @login_required
