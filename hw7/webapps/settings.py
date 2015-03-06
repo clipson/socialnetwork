@@ -155,8 +155,8 @@ MEDIA_URL = '/pictures/'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = ENV['USER']
-EMAIL_HOST_PASSWORD = ENV['PASSWORD']
+EMAIL_HOST_USER = os.environ.get('USER')
+EMAIL_HOST_PASSWORD = os.environ.get('PASSWORD')
 EMAIL_PORT = 587
 
 print 'EMAIL_HOST',EMAIL_HOST+':'+str(EMAIL_PORT)
