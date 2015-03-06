@@ -138,11 +138,11 @@ MEDIA_URL = '/pictures/'
 #config = ConfigParser.ConfigParser()
 #config.read("../config.ini")
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.andrew.cmu.edu'
 EMAIL_HOST_USER = os.environ.get('USER')
 EMAIL_HOST_PASSWORD = os.environ.get('PASSWORD')
-EMAIL_PORT = 587
+EMAIL_PORT = 465
 
 print 'EMAIL_HOST',EMAIL_HOST+':'+str(EMAIL_PORT)
 print 'EMAIL_HOST_USER',EMAIL_HOST_USER
