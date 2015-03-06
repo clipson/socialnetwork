@@ -62,6 +62,7 @@ def follower_stream(request):
     return render(request, 'socialnetwork/follower-stream.html', {'last_post': last_post, 'posts' : posts, 'comments' : comments, 'user_profile': user_profile})
 
 @login_required
+@transaction.atomic
 def add_post(request):
     errors = []
     context = {}
@@ -106,6 +107,7 @@ def add_post(request):
     return render(request, 'socialnetwork/global-stream.html', context)
 
 @login_required
+@transaction.atomic
 def add_comment(request, id):
     errors = []
 
@@ -233,6 +235,7 @@ def profile(request, id):
     return render(request, 'socialnetwork/profile.html', {'follow' : follow, 'relationship': relationship, 'posts' : posts, 'comments' : comments, 'user_profile' : user_profile, 'user_profile2' : user_profile2 , 'user_profile_set' : user_profile_set})
 
 @login_required
+@transaction.atomic
 def edit_profile(request):
 
     if request.method == 'GET':
@@ -276,6 +279,7 @@ def edit_profile(request):
     }
     return render(request, 'socialnetwork/edit_profile.html', context)
 
+@transaction.atomic
 def registration(request):
     context = {}
 
