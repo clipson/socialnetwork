@@ -2,6 +2,7 @@ import ConfigParser
 import boto
 import io
 from boto.s3.key import Key
+import os
 
 #config = ConfigParser.ConfigParser()
 #config.read("config.ini")

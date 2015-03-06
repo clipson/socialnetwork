@@ -16,7 +16,6 @@ from django.db import transaction
 from django.core import serializers
 import json
 from django.shortcuts import render_to_response
-import os
 
 # Used to generate a one-time-use token to verify a user's email address
 from django.contrib.auth.tokens import default_token_generator
