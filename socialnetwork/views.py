@@ -124,6 +124,7 @@ def add_comment(request, id):
     posts = Post.objects.all().order_by('date_created').reverse()
     comments = Comment.objects.all().order_by('date_created')
     user_profile = UserProfile.objects.all()
+    user = request.user
     if posts:
         last_post = posts[0].pk
     else:
