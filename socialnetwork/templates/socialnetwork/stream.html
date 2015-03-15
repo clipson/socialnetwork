@@ -75,7 +75,11 @@
                     <table class= "col s5">
                       <tr>
                         <td>
-                          <img src="{% url 'photo' comment.user.id %}" alt="{{user.picture}}" onerror="this.src='{% static "socialnetwork/images/default.png" %}';" width="50px" height="50px">
+                          {% for prof in user_profile %}
+                          {% if prof.pk == comment.user.id %}
+                          <img src="{{prof.picture_url}}" alt="{{user.picture}}" onerror="this.src='{% static "socialnetwork/images/default.png" %}';" width="50px" height="50px">
+                          {% endif %}
+                          {% endfor %}
                         </td>
                         <td>
                           <a class="link" href="{% url 'profile' comment.user.id %}">{{comment.user.first_name}} {{comment.user.last_name}}</a>
