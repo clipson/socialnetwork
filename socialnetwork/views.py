@@ -123,11 +123,12 @@ def add_comment(request, id):
     	new_comment.save()
     posts = Post.objects.all().order_by('date_created').reverse()
     comments = Comment.objects.all().order_by('date_created')
+    user_profile = UserProfile.objects.all()
     if posts:
         last_post = posts[0].pk
     else:
         last_post = 0;
-    context = {'last_post' : last_post, 'post' : post, 'comment' : new_comment, 'errors' : errors}
+    context = {'last_post' : last_post, 'post' : post, 'posts' : posts, 'comment' : new_comment, 'comments' : comments, 'errors' : errors, 'user_profile': user_profile}
     return render(request, 'socialnetwork/comment.html', context)
 
 
