@@ -128,7 +128,7 @@ def add_comment(request, id):
         last_post = posts[0].pk
     else:
         last_post = 0;
-    context = {'last_post' : last_post, 'post' : post, 'posts' : posts, 'comment' : new_comment, 'comments' : comments, 'errors' : errors, 'user_profile': user_profile}
+    context = {'last_post' : last_post, 'post' : post, 'posts' : posts, 'comment' : new_comment, 'comments' : comments, 'errors' : errors, 'user_profile': user_profile, 'user':user}
     return render(request, 'socialnetwork/comment.html', context)
 
 
