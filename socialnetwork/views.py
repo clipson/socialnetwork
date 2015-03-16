@@ -179,6 +179,7 @@ def delete_comment(request, id):
     context = {'last_post' : last_post, 'posts' : posts, 'comments' : comments, 'errors' : errors, 'user' : user, 'user_profile' : user_profile}
     return render(request, 'socialnetwork/global-stream.html', context)
 
+@login_required
 def get_posts(request, last_post):
 
     # Updates posts newer than the last post on the page
@@ -192,6 +193,7 @@ def get_posts(request, last_post):
         last = posts[0].pk
     return render(request, 'socialnetwork/posts.html', {'last' : last, 'posts' : posts, 'comments' : comments, 'user_profile': user_profile, 'user':user})
 
+@login_required
 def profile(request, id):
     # Catch for missing profile
     user_profile = get_object_or_404(User, id=id)
